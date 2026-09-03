@@ -171,18 +171,7 @@ export function DashboardPanels({ data, onDrill }: DashboardPanelsProps) {
         </div>
       </ChartPanel>
 
-      <ChartPanel index="02" className="panel-completion" title="学员等级" subtitle="L1-L10 各等级学员数量分布" onMore={() => onDrill({ title: '学员等级明细', description: '按等级查看学员数量与占比' })}>
-        <div className="level-layout">
-          <div className="level-summary">
-            <span><UsersRound size={14} /><small>学员总量</small><strong>{studentLevelTotal.toLocaleString()}</strong></span>
-            <span><small>人数最多</small><strong>{dominantStudentLevel.name} · {dominantStudentLevel.count.toLocaleString()}</strong></span>
-            <div className="level-legend"><i className="is-basic" />L1-L3<i className="is-progress" />L4-L7<i className="is-advanced" />L8-L10</div>
-          </div>
-          <EChart option={studentLevelOption} ariaLabel={`L1至L10学员等级数量柱状图，共${studentLevelTotal.toLocaleString()}人`} onPointClick={(name) => onDrill({ title: `${name}等级学员明细`, description: `学员等级：${name}`, dimension: name })} />
-        </div>
-      </ChartPanel>
-
-      <ChartPanel index="03" className="panel-employment" title="就业成果" subtitle="就业规模、就业率与重点流向行业" onMore={() => onDrill({ title: '就业成果明细', description: '查看就业人员与就业去向' })}>
+      <ChartPanel index="02" className="panel-employment" title="就业成果" subtitle="就业规模、就业率与重点流向行业" onMore={() => onDrill({ title: '就业成果明细', description: '查看就业人员与就业去向' })}>
         <div className="employment-layout">
           <div className="employment-summary">
             <BriefcaseBusiness size={20} />
@@ -193,6 +182,17 @@ export function DashboardPanels({ data, onDrill }: DashboardPanelsProps) {
             </div>
           </div>
           <EChart option={employmentOption} ariaLabel="重点就业行业人数横向柱状图" onPointClick={(name) => onDrill({ title: `${name}就业明细`, description: `就业行业：${name}` })} />
+        </div>
+      </ChartPanel>
+
+      <ChartPanel index="03" className="panel-completion" title="学员等级" subtitle="L1-L10 各等级学员数量分布" onMore={() => onDrill({ title: '学员等级明细', description: '按等级查看学员数量与占比' })}>
+        <div className="level-layout">
+          <div className="level-summary">
+            <span><UsersRound size={14} /><small>学员总量</small><strong>{studentLevelTotal.toLocaleString()}</strong></span>
+            <span><small>人数最多</small><strong>{dominantStudentLevel.name} · {dominantStudentLevel.count.toLocaleString()}</strong></span>
+            <div className="level-legend"><i className="is-basic" />L1-L3<i className="is-progress" />L4-L7<i className="is-advanced" />L8-L10</div>
+          </div>
+          <EChart option={studentLevelOption} ariaLabel={`L1至L10学员等级数量柱状图，共${studentLevelTotal.toLocaleString()}人`} onPointClick={(name) => onDrill({ title: `${name}等级学员明细`, description: `学员等级：${name}`, dimension: name })} />
         </div>
       </ChartPanel>
 
@@ -224,28 +224,7 @@ export function DashboardPanels({ data, onDrill }: DashboardPanelsProps) {
         </div>
       </ChartPanel>
 
-      <ChartPanel
-        index="05"
-        className="panel-students"
-        title="学员培训分析"
-        subtitle="年龄、学历、性别、区域自动轮播"
-        onMore={() => onDrill({ title: '学员结构明细', description: `${studentDimension}维度学员分析` })}
-        extra={
-          <div className="panel-switcher" {...studentCarousel.interactionProps}>
-            <div className="panel-tabs" role="tablist">{studentDimensions.map((item, index) => <button type="button" role="tab" aria-selected={studentDimension === item} className={studentDimension === item ? 'active' : ''} key={item} onClick={() => studentCarousel.setPage(index)}>{item}</button>)}</div>
-            <button className="panel-cycle-toggle" type="button" aria-label={studentCarousel.paused ? '继续学员结构轮播' : '暂停学员结构轮播'} title={studentCarousel.paused ? '继续轮播' : '暂停轮播'} onClick={() => studentCarousel.setPaused((current) => !current)}>{studentCarousel.paused ? <Play size={12} /> : <Pause size={12} />}</button>
-          </div>
-        }
-      >
-        <div className="student-layout" {...studentCarousel.interactionProps}>
-          <EChart option={ageOption} ariaLabel={`学员${studentDimension}人数占比横向柱状图`} onPointClick={(name) => onDrill({ title: `${name}学员明细`, description: `筛选${studentDimension}为${name}的学员`, dimension: name })} />
-          <div className="flow-mini" aria-label="培训状态漏斗">
-            {data.flow.map((item, index) => <button type="button" key={item.name} style={{ width: `${100 - index * 8}%` }} onClick={() => onDrill({ title: `${item.name}学员明细`, description: `培训状态：${item.name}` })}><span>{item.name}</span><strong>{item.value.toLocaleString()}</strong></button>)}
-          </div>
-        </div>
-      </ChartPanel>
-
-      <ChartPanel index="06" className="panel-teachers" title="师资排行榜" subtitle="按教学评价排序 · 授课数据自动轮播" onMore={() => onDrill({ title: '师资排行榜明细', description: '查看师资授课负载与教学评价' })}>
+      <ChartPanel index="05" className="panel-teachers" title="师资排行榜" subtitle="按教学评价排序 · 授课数据自动轮播" onMore={() => onDrill({ title: '师资排行榜明细', description: '查看师资授课负载与教学评价' })}>
         <div className="teacher-ranking-layout" {...teacherCarousel.interactionProps}>
           <div className="teacher-rank-summary">
             <span><UsersRound size={14} /><small>参评师资</small><strong>{data.kpis[3].value.toLocaleString()}</strong></span>
@@ -261,6 +240,27 @@ export function DashboardPanels({ data, onDrill }: DashboardPanelsProps) {
                 return <button type="button" key={teacher.id} onClick={() => onDrill({ title: `${teacher.name}授课详情`, description: `${teacher.level}教师 · ${teacher.hours} 学时 · ${teacher.students} 名学员` })}><span className="teacher-identity"><i className={rank <= 3 ? `top-${rank}` : ''}>{String(rank).padStart(2, '0')}</i><span><strong>{teacher.name}</strong><small>{teacher.level}</small></span></span><em>{teacher.hours}<small>h</small></em><em>{teacher.students.toLocaleString()}<small>人</small></em><b>{teacher.rating}<small>分</small></b></button>
               })}
             </div>
+          </div>
+        </div>
+      </ChartPanel>
+
+      <ChartPanel
+        index="06"
+        className="panel-students"
+        title="学员培训分析"
+        subtitle="年龄、学历、性别、区域自动轮播"
+        onMore={() => onDrill({ title: '学员结构明细', description: `${studentDimension}维度学员分析` })}
+        extra={
+          <div className="panel-switcher" {...studentCarousel.interactionProps}>
+            <div className="panel-tabs" role="tablist">{studentDimensions.map((item, index) => <button type="button" role="tab" aria-selected={studentDimension === item} className={studentDimension === item ? 'active' : ''} key={item} onClick={() => studentCarousel.setPage(index)}>{item}</button>)}</div>
+            <button className="panel-cycle-toggle" type="button" aria-label={studentCarousel.paused ? '继续学员结构轮播' : '暂停学员结构轮播'} title={studentCarousel.paused ? '继续轮播' : '暂停轮播'} onClick={() => studentCarousel.setPaused((current) => !current)}>{studentCarousel.paused ? <Play size={12} /> : <Pause size={12} />}</button>
+          </div>
+        }
+      >
+        <div className="student-layout" {...studentCarousel.interactionProps}>
+          <EChart option={ageOption} ariaLabel={`学员${studentDimension}人数占比横向柱状图`} onPointClick={(name) => onDrill({ title: `${name}学员明细`, description: `筛选${studentDimension}为${name}的学员`, dimension: name })} />
+          <div className="flow-mini" aria-label="培训状态漏斗">
+            {data.flow.map((item, index) => <button type="button" key={item.name} style={{ width: `${100 - index * 8}%` }} onClick={() => onDrill({ title: `${item.name}学员明细`, description: `培训状态：${item.name}` })}><span>{item.name}</span><strong>{item.value.toLocaleString()}</strong></button>)}
           </div>
         </div>
       </ChartPanel>

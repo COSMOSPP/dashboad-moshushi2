@@ -149,7 +149,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focu
 .tone-green .kpi-spark i { background: var(--green); }
 .tone-amber .kpi-spark i { background: var(--amber); }
 
-.analysis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); grid-template-areas: "trend completion employment" "quality students teachers"; gap: 10px; min-height: 0; }
+.analysis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); grid-template-areas: "trend employment completion" "quality teachers students"; gap: 10px; min-height: 0; }
 .panel-trend { grid-area: trend; }
 .panel-completion { grid-area: completion; }
 .panel-students { grid-area: students; }
