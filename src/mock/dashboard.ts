@@ -17,21 +17,21 @@ export const defaultFilters: FilterState = {
 }
 
 const baseStudents: StudentRecord[] = [
-  ['ST2026001', '李沐晨', '女', 27, 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 98, 100, 94, '就业', '已就业'],
-  ['ST2026002', '周启航', '男', 32, '电商运营实训班', '电商运营', '新城职业学院', 96, 100, 91, '通过', '待就业'],
-  ['ST2026003', '陈雨桐', '女', 24, '数字媒体创作班', '短视频运营', '数字人才培训中心', 93, 96, 89, '完课', '继续学习'],
-  ['ST2026004', '赵子谦', '男', 38, '智能制造技能班', '智能制造', '产教融合实训基地', 97, 100, 96, '就业', '已就业'],
-  ['ST2026005', '孙若琳', '女', 29, 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 91, 82, 84, '在训', '待就业'],
-  ['ST2026006', '王思远', '男', 43, '电商运营实训班', '电商运营', '新城职业学院', 88, 76, 78, '在训', '待就业'],
-  ['ST2026007', '刘知夏', '女', 35, '数字媒体创作班', '短视频运营', '数字人才培训中心', 99, 100, 97, '就业', '已就业'],
-  ['ST2026008', '吴嘉树', '男', 22, '智能制造技能班', '智能制造', '产教融合实训基地', 95, 94, 90, '通过', '待就业'],
-  ['ST2026009', '徐安然', '女', 47, '电商运营实训班', '养老护理', '新城职业学院', 92, 100, 88, '就业', '已就业'],
-  ['ST2026010', '何景明', '男', 31, 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 97, 98, 93, '通过', '待就业'],
-  ['ST2026011', '高星澜', '女', 26, '数字媒体创作班', '短视频运营', '数字人才培训中心', 94, 87, 86, '在训', '待就业'],
-  ['ST2026012', '林致远', '男', 41, '智能制造技能班', '智能制造', '产教融合实训基地', 90, 100, 85, '就业', '已就业'],
+  ['ST2026001', '李沐晨', '女', 27, 'L7', 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 98, 100, 94, '就业', '已就业'],
+  ['ST2026002', '周启航', '男', 32, 'L6', '电商运营实训班', '电商运营', '新城职业学院', 96, 100, 91, '通过', '待就业'],
+  ['ST2026003', '陈雨桐', '女', 24, 'L4', '数字媒体创作班', '短视频运营', '数字人才培训中心', 93, 96, 89, '完课', '继续学习'],
+  ['ST2026004', '赵子谦', '男', 38, 'L8', '智能制造技能班', '智能制造', '产教融合实训基地', 97, 100, 96, '就业', '已就业'],
+  ['ST2026005', '孙若琳', '女', 29, 'L5', 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 91, 82, 84, '在训', '待就业'],
+  ['ST2026006', '王思远', '男', 43, 'L3', '电商运营实训班', '电商运营', '新城职业学院', 88, 76, 78, '在训', '待就业'],
+  ['ST2026007', '刘知夏', '女', 35, 'L9', '数字媒体创作班', '短视频运营', '数字人才培训中心', 99, 100, 97, '就业', '已就业'],
+  ['ST2026008', '吴嘉树', '男', 22, 'L4', '智能制造技能班', '智能制造', '产教融合实训基地', 95, 94, 90, '通过', '待就业'],
+  ['ST2026009', '徐安然', '女', 47, 'L2', '电商运营实训班', '养老护理', '新城职业学院', 92, 100, 88, '就业', '已就业'],
+  ['ST2026010', '何景明', '男', 31, 'L6', 'AI应用提高班', '人工智能应用', '市职业技能培训中心', 97, 98, 93, '通过', '待就业'],
+  ['ST2026011', '高星澜', '女', 26, 'L1', '数字媒体创作班', '短视频运营', '数字人才培训中心', 94, 87, 86, '在训', '待就业'],
+  ['ST2026012', '林致远', '男', 41, 'L10', '智能制造技能班', '智能制造', '产教融合实训基地', 90, 100, 85, '就业', '已就业'],
 ] .map((row) => ({
-  id: row[0], name: row[1], gender: row[2], age: row[3], className: row[4], course: row[5],
-  institution: row[6], attendanceRate: row[7], completionRate: row[8], score: row[9], status: row[10], employment: row[11],
+  id: row[0], name: row[1], gender: row[2], age: row[3], level: row[4], className: row[5], course: row[6],
+  institution: row[7], attendanceRate: row[8], completionRate: row[9], score: row[10], status: row[11], employment: row[12],
 })) as StudentRecord[]
 
 const makeKpis = (factor: number): KPIItem[] => {
@@ -73,6 +73,7 @@ export function createDashboardData(filters: FilterState): DashboardData | null 
 
   const kpis = makeKpis(factor)
   const scale = (value: number) => Math.max(1, Math.round(value * factor))
+  const scaleHours = (value: number) => Math.max(8, Math.round(value * factor))
   const students = baseStudents.filter((student) =>
     (filters.course === '全部课程' || student.course === filters.course)
     && (filters.className === '全部班级' || student.className === filters.className)
@@ -97,6 +98,16 @@ export function createDashboardData(filters: FilterState): DashboardData | null 
     ],
   }
 
+  const levelBaseCounts = [864, 1128, 1542, 1876, 2014, 1862, 1436, 1018, 694, 422]
+  const registeredTotal = kpis.find((item) => item.key === 'registered')?.value ?? scale(12856)
+  const scaledLevelCounts = levelBaseCounts.slice(0, -1).map(scale)
+  scaledLevelCounts.push(registeredTotal - scaledLevelCounts.reduce((sum, count) => sum + count, 0))
+  const studentLevels: DashboardData['studentLevels'] = scaledLevelCounts.map((count, index) => ({
+    name: `L${index + 1}`,
+    count,
+    value: Number(((count / registeredTotal) * 100).toFixed(1)),
+  }))
+
   return {
     kpis,
     trend: [
@@ -105,20 +116,36 @@ export function createDashboardData(filters: FilterState): DashboardData | null 
       ['7月', 2014, 1451, 8.3], ['8月', 2186, 1632, 8.6], ['9月', 2354, 1810, 7.7],
     ].map(([month, registered, training, change]) => ({ month: String(month), registered: scale(Number(registered)), training: scale(Number(training)), change: Number(change) })),
     studentAge: studentProfiles.年龄,
+    studentLevels,
     studentProfiles,
     courseRanking: [
       { id: 'C001', name: '人工智能应用', students: scale(1286), completionRate: 92.1, passRate: 94.2, rating: 4.92 },
       { id: 'C002', name: '电商运营', students: scale(1125), completionRate: 90.4, passRate: 92.6, rating: 4.89 },
       { id: 'C003', name: '短视频运营', students: scale(986), completionRate: 89.7, passRate: 91.8, rating: 4.87 },
       { id: 'C004', name: '智能制造', students: scale(842), completionRate: 88.5, passRate: 93.1, rating: 4.85 },
+      { id: 'C005', name: '养老护理', students: scale(756), completionRate: 91.3, passRate: 92.4, rating: 4.83 },
+      { id: 'C006', name: '工业机器人运维', students: scale(724), completionRate: 87.9, passRate: 91.6, rating: 4.81 },
+      { id: 'C007', name: '直播电商实务', students: scale(688), completionRate: 89.2, passRate: 90.8, rating: 4.79 },
+      { id: 'C008', name: '数字化办公', students: scale(642), completionRate: 90.6, passRate: 92.0, rating: 4.77 },
+      { id: 'C009', name: '健康照护', students: scale(608), completionRate: 88.8, passRate: 90.4, rating: 4.75 },
+      { id: 'C010', name: '供应链管理', students: scale(574), completionRate: 87.6, passRate: 89.9, rating: 4.73 },
     ],
     teacherLevels: [
       { name: '高级', value: 86, count: scale(86) }, { name: '中级', value: 214, count: scale(214) }, { name: '初级', value: 186, count: scale(186) },
     ],
     teacherRanking: [
-      { id: 'T001', name: '张文博', level: '高级', hours: 128, students: scale(286), rating: 4.96 },
-      { id: 'T002', name: '宋佳宁', level: '高级', hours: 116, students: scale(254), rating: 4.94 },
-      { id: 'T003', name: '韩志强', level: '中级', hours: 108, students: scale(238), rating: 4.92 },
+      { id: 'T001', name: '张文博', level: '高级', hours: scaleHours(128), students: scale(286), rating: 4.96 },
+      { id: 'T002', name: '宋佳宁', level: '高级', hours: scaleHours(116), students: scale(254), rating: 4.94 },
+      { id: 'T003', name: '韩志强', level: '中级', hours: scaleHours(108), students: scale(238), rating: 4.92 },
+      { id: 'T004', name: '沈知行', level: '高级', hours: scaleHours(102), students: scale(226), rating: 4.90 },
+      { id: 'T005', name: '林悦然', level: '中级', hours: scaleHours(96), students: scale(218), rating: 4.88 },
+      { id: 'T006', name: '陈思远', level: '中级', hours: scaleHours(92), students: scale(207), rating: 4.86 },
+      { id: 'T007', name: '周明轩', level: '初级', hours: scaleHours(86), students: scale(196), rating: 4.84 },
+      { id: 'T008', name: '吴静怡', level: '初级', hours: scaleHours(82), students: scale(184), rating: 4.82 },
+      { id: 'T009', name: '梁思成', level: '中级', hours: scaleHours(78), students: scale(176), rating: 4.80 },
+      { id: 'T010', name: '许嘉禾', level: '初级', hours: scaleHours(74), students: scale(168), rating: 4.78 },
+      { id: 'T011', name: '郑安琪', level: '中级', hours: scaleHours(70), students: scale(156), rating: 4.76 },
+      { id: 'T012', name: '罗远航', level: '初级', hours: scaleHours(66), students: scale(148), rating: 4.74 },
     ],
     employmentDestinations: [
       { name: '企业就业', value: 48, count: scale(2316) }, { name: '灵活就业', value: 22, count: scale(1062) },

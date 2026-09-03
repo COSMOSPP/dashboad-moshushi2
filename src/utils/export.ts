@@ -1,7 +1,7 @@
 import type { FilterState, StudentRecord } from '../types/dashboard'
 
-const headers: Record<keyof Pick<StudentRecord, 'name' | 'gender' | 'age' | 'className' | 'course' | 'institution' | 'attendanceRate' | 'completionRate' | 'score' | 'employment'>, string> = {
-  name: '姓名', gender: '性别', age: '年龄', className: '班级', course: '课程', institution: '培训机构',
+const headers: Record<keyof Pick<StudentRecord, 'name' | 'gender' | 'age' | 'level' | 'className' | 'course' | 'institution' | 'attendanceRate' | 'completionRate' | 'score' | 'employment'>, string> = {
+  name: '姓名', gender: '性别', age: '年龄', level: '学员等级', className: '班级', course: '课程', institution: '培训机构',
   attendanceRate: '出勤率', completionRate: '完课率', score: '考试成绩', employment: '就业状态',
 }
 

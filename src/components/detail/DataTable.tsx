@@ -70,7 +70,7 @@ export function DataTable({ records, filters, onSelect, compact = false }: DataT
           <tbody>
             {visibleRecords.map((record) => (
               <tr key={record.id}>
-                <td><strong>{record.name}</strong><small>{record.gender} · {record.age}岁</small></td>
+                <td><strong>{record.name}</strong><small>{record.gender} · {record.age}岁 · {record.level}</small></td>
                 <td><strong>{record.className}</strong><small>{record.course}</small></td>
                 <td><span className={record.attendanceRate < 90 ? 'warning-text' : ''}>{record.attendanceRate}%</span></td>
                 <td>{record.completionRate}%</td><td>{record.score}</td>

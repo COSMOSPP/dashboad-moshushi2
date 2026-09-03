@@ -1,5 +1,5 @@
 import { BriefcaseBusiness, GraduationCap, UserRound, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { DrillContext, FilterState, StudentRecord } from '../../types/dashboard'
 import { DataTable } from './DataTable'
 
@@ -13,6 +13,10 @@ interface DetailDrawerProps {
 
 export function DetailDrawer({ open, context, records, filters, onClose }: DetailDrawerProps) {
   const [selected, setSelected] = useState<StudentRecord | null>(null)
+  const scopedRecords = useMemo(() => {
+    if (!context?.dimension || !/^L(?:10|[1-9])$/.test(context.dimension)) return records
+    return records.filter((record) => record.level === context.dimension)
+  }, [context?.dimension, records])
 
   useEffect(() => {
     if (!open) setSelected(null)
@@ -43,12 +47,12 @@ export function DetailDrawer({ open, context, records, filters, onClose }: Detai
           <section className="student-detail">
             <button type="button" onClick={() => setSelected(null)} aria-label="关闭学员详情"><X size={14} /></button>
             <div className="student-avatar"><UserRound size={21} /></div>
-            <div className="student-name"><strong>{selected.name}</strong><span>{selected.id} · {selected.gender} · {selected.age}岁</span></div>
+            <div className="student-name"><strong>{selected.name}</strong><span>{selected.id} · {selected.gender} · {selected.age}岁 · {selected.level}</span></div>
             <div><GraduationCap size={15} /><span>{selected.course}<small>{selected.className}</small></span></div>
             <div><BriefcaseBusiness size={15} /><span>{selected.employment}<small>考试成绩 {selected.score} 分</small></span></div>
           </section>
         )}
-        <DataTable records={records} filters={filters} onSelect={setSelected} compact />
+        <DataTable records={scopedRecords} filters={filters} onSelect={setSelected} compact />
       </aside>
     </div>
   )

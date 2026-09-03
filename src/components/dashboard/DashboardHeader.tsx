@@ -1,19 +1,10 @@
 import { Building2, MapPinned, Maximize2, RefreshCw, ShieldCheck } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
 
 interface DashboardHeaderProps {
   updateTime: string
   refreshing: boolean
   onRefresh: () => void
 }
-
-const navItems = [
-  ['/dashboard', '综合概览'],
-  ['/dashboard/training', '培训规模'],
-  ['/dashboard/quality', '培训质量'],
-  ['/dashboard/teachers', '师资分析'],
-  ['/dashboard/employment', '就业成果'],
-]
 
 export function DashboardHeader({ updateTime, refreshing, onRefresh }: DashboardHeaderProps) {
   const displayDate = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date())
@@ -31,11 +22,6 @@ export function DashboardHeader({ updateTime, refreshing, onRefresh }: Dashboard
           <p>职业技能培训数字化监管平台</p>
         </div>
       </div>
-      <nav className="dashboard-nav" aria-label="驾驶舱导航">
-        {navItems.map(([path, label]) => (
-          <NavLink key={path} to={path} end={path === '/dashboard'}>{label}</NavLink>
-        ))}
-      </nav>
       <div className="header-status">
         <span className="scope-badge"><MapPinned size={13} />市级全域</span>
         <div className="update-copy"><span>{displayDate} · 数据更新</span><strong>{updateTime || '--:--:--'}</strong></div>

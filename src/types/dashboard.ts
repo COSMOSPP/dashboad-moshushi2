@@ -59,11 +59,14 @@ export interface TeacherRanking {
   rating: number
 }
 
+export type StudentLevel = 'L1' | 'L2' | 'L3' | 'L4' | 'L5' | 'L6' | 'L7' | 'L8' | 'L9' | 'L10'
+
 export interface StudentRecord {
   id: string
   name: string
   gender: '男' | '女'
   age: number
+  level: StudentLevel
   className: string
   course: string
   institution: string
@@ -78,6 +81,7 @@ export interface DashboardData {
   kpis: KPIItem[]
   trend: TrendPoint[]
   studentAge: DistributionItem[]
+  studentLevels: DistributionItem[]
   studentProfiles: Record<'年龄' | '学历' | '性别' | '区域', DistributionItem[]>
   courseRanking: CourseRanking[]
   teacherLevels: DistributionItem[]

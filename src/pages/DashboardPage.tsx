@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DashboardHeader } from '../components/dashboard/DashboardHeader'
 import { DashboardPanels } from '../components/dashboard/DashboardPanels'
-import { GlobalFilter } from '../components/dashboard/GlobalFilter'
 import { KPIGrid } from '../components/dashboard/KPIGrid'
 import { ResultFlow } from '../components/dashboard/ResultFlow'
 import { ModuleState } from '../components/common/ModuleState'
@@ -49,7 +48,6 @@ export function DashboardPage() {
   return (
     <div className="dashboard-shell">
       <DashboardHeader updateTime={data?.updateTime ?? ''} refreshing={viewState === 'loading'} onRefresh={reload} />
-      <GlobalFilter />
       {viewState !== 'normal' || !data ? (
         <ModuleState state={viewState} onReset={resetFilters} onRetry={reload} />
       ) : (
